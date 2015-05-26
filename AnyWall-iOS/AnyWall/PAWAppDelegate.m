@@ -33,7 +33,10 @@ PAWSettingsViewControllerDelegate>
 
     // ****************************************************************************
     // Parse initialization
-    [Parse setApplicationId:@"APPLICATION_ID" clientKey:@"CLIENT_KEY"];
+	[Parse setApplicationId:@"cFOCgoE6v77JoeGXkF5cK5az4FLM5twfdOCGBphU"
+				  clientKey:@"eJ5fVdx0SO8cXrZ8mTxxwREK34wpZ6VMcHBumKZl"];
+
+    [PFFacebookUtils initializeFacebook];
     // ****************************************************************************
 
     // Set the global tint on the navigation bar
@@ -53,7 +56,8 @@ PAWSettingsViewControllerDelegate>
         [self presentWallViewControllerAnimated:NO];
     } else {
         // Go to the welcome screen and have them log in or create an account.
-        [self presentLoginViewController];
+//        [self presentLoginViewController];
+        [self presentWallViewControllerAnimated:NO];
     }
 
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
