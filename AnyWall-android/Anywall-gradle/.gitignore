@@ -51,4 +51,5 @@ crashlytics-build.properties
 .gradle
 build
 gradle
+gradlew.bat
 
