@@ -133,6 +133,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 
     // Adapter for the Parse query
     private ParseQueryAdapter<AnywallPost> postsQueryAdapter;
+    private Button postButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,8 +239,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
         });
 
         // Set up the handler for the post button click
-        Button postButton = (Button) findViewById(R.id.post_button);
-        postButton.setOnClickListener(new OnClickListener() {
+        this.postButton = (Button) findViewById(R.id.post_button);
+        this.postButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Only allow posts if we have a location
                 Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
@@ -442,6 +443,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
      * Report location updates to the UI.
      */
     public void onLocationChanged(Location location) {
+        this.postButton.setText("Lat: " + location.getLatitude()+" long: "+location.getLongitude());
         currentLocation = location;
         if (lastLocation != null
                 && geoPointFromLocation(location)
