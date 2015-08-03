@@ -108,7 +108,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
      * Other class member variables
      */
     // Map fragment
-    private SupportMapFragment mapFragment;
+//    private SupportMapFragment mapFragment;
 
     // Represents the circle around a map
     private Circle mapCircle;
@@ -120,7 +120,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     // Fields for helping process map and location changes
     private final Map<String, Marker> mapMarkers = new HashMap<String, Marker>();
     private int mostRecentMapUpdate;
-    private boolean hasSetUpInitialLocation;
+//    private boolean hasSetUpInitialLocation;
+
     private String selectedPostObjectId;
     private Location lastLocation;
     private Location currentLocation;
@@ -202,41 +203,41 @@ public class MainActivity extends FragmentActivity implements LocationListener,
         postsListView.setAdapter(postsQueryAdapter);
 
         // Set up the handler for an item's selection
-        postsListView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final AnywallPost item = postsQueryAdapter.getItem(position);
-                selectedPostObjectId = item.getObjectId();
-                mapFragment.getMap().animateCamera(
-                        CameraUpdateFactory.newLatLng(new LatLng(item.getLocation().getLatitude(), item
-                                .getLocation().getLongitude())), new CancelableCallback() {
-                            public void onFinish() {
-                                Marker marker = mapMarkers.get(item.getObjectId());
-                                if (marker != null) {
-                                    marker.showInfoWindow();
-                                }
-                            }
+//        postsListView.setOnItemClickListener(new OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                final AnywallPost item = postsQueryAdapter.getItem(position);
+//                selectedPostObjectId = item.getObjectId();
+//                mapFragment.getMap().animateCamera(
+//                        CameraUpdateFactory.newLatLng(new LatLng(item.getLocation().getLatitude(), item
+//                                .getLocation().getLongitude())), new CancelableCallback() {
+//                            public void onFinish() {
+//                                Marker marker = mapMarkers.get(item.getObjectId());
+//                                if (marker != null) {
+//                                    marker.showInfoWindow();
+//                                }
+//                            }
+//
+//                            public void onCancel() {
+//                            }
+//                        });
+//                Marker marker = mapMarkers.get(item.getObjectId());
+//                if (marker != null) {
+//                    marker.showInfoWindow();
+//                }
+//            }
+//        });
 
-                            public void onCancel() {
-                            }
-                        });
-                Marker marker = mapMarkers.get(item.getObjectId());
-                if (marker != null) {
-                    marker.showInfoWindow();
-                }
-            }
-        });
-
-        // Set up the map fragment
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
-        // Enable the current location "blue dot"
-        mapFragment.getMap().setMyLocationEnabled(true);
-        // Set up the camera change handler
-        mapFragment.getMap().setOnCameraChangeListener(new OnCameraChangeListener() {
-            public void onCameraChange(CameraPosition position) {
-                // When the camera changes, update the query
-                doMapQuery();
-            }
-        });
+//        // Set up the map fragment
+//        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+//        // Enable the current location "blue dot"
+//        mapFragment.getMap().setMyLocationEnabled(true);
+//        // Set up the camera change handler
+//        mapFragment.getMap().setOnCameraChangeListener(new OnCameraChangeListener() {
+//            public void onCameraChange(CameraPosition position) {
+//                // When the camera changes, update the query
+//                doMapQuery();
+//            }
+//        });
 
         // Set up the handler for the post button click
         this.postButton = (Button) findViewById(R.id.post_button);
@@ -452,16 +453,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
             return;
         }
         lastLocation = location;
-        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        if (!hasSetUpInitialLocation) {
-            // Zoom to the current location.
-            updateZoom(myLatLng);
-            hasSetUpInitialLocation = true;
-        }
-        // Update map radius indicator
-        updateCircle(myLatLng);
-        doMapQuery();
-        doListQuery();
     }
 
     /*
@@ -588,12 +579,12 @@ public class MainActivity extends FragmentActivity implements LocationListener,
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                     }
                     // Add a new marker
-                    Marker marker = mapFragment.getMap().addMarker(markerOpts);
-                    mapMarkers.put(post.getObjectId(), marker);
-                    if (post.getObjectId().equals(selectedPostObjectId)) {
-                        marker.showInfoWindow();
-                        selectedPostObjectId = null;
-                    }
+//                    Marker marker = mapFragment.getMap().addMarker(markerOpts);
+//                    mapMarkers.put(post.getObjectId(), marker);
+//                    if (post.getObjectId().equals(selectedPostObjectId)) {
+//                        marker.showInfoWindow();
+//                        selectedPostObjectId = null;
+//                    }
                 }
                 // Clean up old markers.
                 cleanUpMarkers(toKeep);
@@ -626,18 +617,18 @@ public class MainActivity extends FragmentActivity implements LocationListener,
      * Displays a circle on the map representing the search radius
      */
     private void updateCircle(LatLng myLatLng) {
-        if (mapCircle == null) {
-            mapCircle =
-                    mapFragment.getMap().addCircle(
-                            new CircleOptions().center(myLatLng).radius(radius * METERS_PER_FEET));
-            int baseColor = Color.DKGRAY;
-            mapCircle.setStrokeColor(baseColor);
-            mapCircle.setStrokeWidth(2);
-            mapCircle.setFillColor(Color.argb(50, Color.red(baseColor), Color.green(baseColor),
-                    Color.blue(baseColor)));
-        }
-        mapCircle.setCenter(myLatLng);
-        mapCircle.setRadius(radius * METERS_PER_FEET); // Convert radius in feet to meters.
+//        if (mapCircle == null) {
+//            mapCircle =
+//                    mapFragment.getMap().addCircle(
+//                            new CircleOptions().center(myLatLng).radius(radius * METERS_PER_FEET));
+//            int baseColor = Color.DKGRAY;
+//            mapCircle.setStrokeColor(baseColor);
+//            mapCircle.setStrokeWidth(2);
+//            mapCircle.setFillColor(Color.argb(50, Color.red(baseColor), Color.green(baseColor),
+//                    Color.blue(baseColor)));
+//        }
+//        mapCircle.setCenter(myLatLng);
+//        mapCircle.setRadius(radius * METERS_PER_FEET); // Convert radius in feet to meters.
     }
 
     /*
@@ -647,7 +638,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
         // Get the bounds to zoom to
         LatLngBounds bounds = calculateBoundsWithCenter(myLatLng);
         // Zoom to the given bounds
-        mapFragment.getMap().animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 5));
+//        mapFragment.getMap().animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 5));
     }
 
     /*
